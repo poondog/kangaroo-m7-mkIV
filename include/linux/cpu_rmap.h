@@ -10,8 +10,10 @@
 #include <linux/cpumask.h>
 #include <linux/gfp.h>
 #include <linux/slab.h>
+#include <linux/kref.h>
 
 struct cpu_rmap {
+	struct kref	refcount;
 	u16		size, used;
 	void		**obj;
 	struct {
@@ -23,10 +25,7 @@ struct cpu_rmap {
 
 extern struct cpu_rmap *alloc_cpu_rmap(unsigned int size, gfp_t flags);
 
-static inline void free_cpu_rmap(struct cpu_rmap *rmap)
-{
-	kfree(rmap);
-}
+extern int cpu_rmap_put(struct cpu_rmap *rmap);
 
 extern int cpu_rmap_add(struct cpu_rmap *rmap, void *obj);
 extern int cpu_rmap_update(struct cpu_rmap *rmap, u16 index,
