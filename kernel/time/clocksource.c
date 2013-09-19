@@ -446,12 +446,19 @@ static void clocksource_select(void)
 	}
 }
 
-#else 
+#else /* !CONFIG_ARCH_USES_GETTIMEOFFSET */
 
 static inline void clocksource_select(void) { }
 
 #endif
 
+/*
+ * clocksource_done_booting - Called near the end of core bootup
+ *
+ * Hack to avoid lots of clocksource churn at boot time.
+ * We use arch_initcall because we want this to start before
+ * device_initcall but after SMP init.
+ */
 static int __init clocksource_done_booting(void)
 {
 	mutex_lock(&clocksource_mutex);
@@ -467,7 +474,7 @@ static int __init clocksource_done_booting(void)
 	mutex_unlock(&clocksource_mutex);
 	return 0;
 }
-fs_initcall(clocksource_done_booting);
+arch_initcall(clocksource_done_booting);
 
 static void clocksource_enqueue(struct clocksource *cs)
 {
