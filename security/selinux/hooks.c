@@ -3569,6 +3569,12 @@ static int sock_has_perm(struct task_struct *task, struct sock *sk, u32 perms)
 		return 0;
 	}
 
+	if (unlikely(!sksec))
+	{
+		pr_debug(KERN_CRIT "[SELinux] sksec is NULL, socket is already freed. \n");
+		return -EINVAL;
+	}
+
 	if (sksec->sid == SECINITSID_KERNEL)
 		return 0;
 
