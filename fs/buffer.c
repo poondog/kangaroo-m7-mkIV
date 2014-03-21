@@ -504,7 +504,7 @@ static void __set_page_dirty(struct page *page,
 	unsigned long flags;
 
 	spin_lock_irqsave(&mapping->tree_lock, flags);
- 	if (page->mapping) {	/* Race with truncate? */	
+	if (page->mapping) {	/* Race with truncate? */	
 		WARN_ON_ONCE(warn && !PageUptodate(page));
 		account_page_dirtied(page, mapping);
 		radix_tree_tag_set(&mapping->page_tree,
