@@ -91,7 +91,7 @@ extern int flush_old_exec(struct linux_binprm * bprm);
 extern void setup_new_exec(struct linux_binprm * bprm);
 extern void would_dump(struct linux_binprm *, struct file *);
 
-extern int suid_dumpable;	
+extern int suid_dumpable;
 
 #define EXSTACK_DEFAULT   0	/* Whatever the arch defaults to */
 #define EXSTACK_DISABLE_X 1	
