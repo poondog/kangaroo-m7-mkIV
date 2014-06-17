@@ -809,7 +809,7 @@ static void update_wall_time(void)
 		timekeeper.xtime.tv_sec += leap;
 		timekeeper.wall_to_monotonic.tv_sec -= leap;
 		if (leap)
-			*clock_set = 1;
+			clock_set = 1;
 	}
 
 	timekeeping_update(false);
