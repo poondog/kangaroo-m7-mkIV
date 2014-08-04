@@ -114,7 +114,7 @@ struct snd_card {
 	struct list_head controls;	
 	struct list_head ctl_files;
 	struct mutex user_ctl_lock;	/* protects user controls against
-					   concurrent access */	
+					   concurrent access */
 
 	struct snd_info_entry *proc_root;	
 	struct snd_info_entry *proc_id;	
