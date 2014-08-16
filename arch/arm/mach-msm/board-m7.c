@@ -5170,19 +5170,18 @@ static struct slim_boardinfo m7_slim_devices[] = {
 };
 
 static struct msm_i2c_platform_data m7_i2c_qup_gsbi1_pdata = {
-	.clk_freq = 400000,
+	.clk_freq = 384000,
 	.src_clk_rate = 24000000,
 };
 
 static struct msm_i2c_platform_data apq8064_i2c_qup_gsbi2_pdata = {
-	.clk_freq = 400000,
+	.clk_freq = 384000,
 	.src_clk_rate = 24000000,
 	
 };
 
-
 static struct msm_i2c_platform_data m7_i2c_qup_gsbi3_pdata = {
-	.clk_freq = 400000,
+	.clk_freq = 384000,
 	.src_clk_rate = 24000000,
 	
 #ifdef CONFIG_SERIAL_CIR
@@ -5191,7 +5190,7 @@ static struct msm_i2c_platform_data m7_i2c_qup_gsbi3_pdata = {
 };
 
 static struct msm_i2c_platform_data m7_i2c_qup_gsbi4_pdata = {
-	.clk_freq = 400000,
+	.clk_freq = 384000,
 	.src_clk_rate = 24000000,
 	.share_uart_flag = 1,
 };
