@@ -2789,7 +2789,7 @@ static int tcp_process_frto(struct sock *sk, int flag)
 				return true;
 			}
 
- 			/* Prevent sending of new data. */
+			/* Prevent sending of new data. */
 					   (tcp_packets_in_flight(tp));
 			return 1;
 		}
