@@ -49,7 +49,7 @@ struct scsi_disk {
 	u8		protection_type;
 	u8		provisioning_mode;
 	unsigned	ATO : 1;
-	unsigned	cache_override : 1; /* temp override of WCE,RCD */	
+	unsigned	cache_override : 1; /* temp override of WCE,RCD */
 	unsigned	WCE : 1;	
 	unsigned	RCD : 1;	
 	unsigned	DPOFUA : 1;	
