@@ -59,12 +59,12 @@ struct trace_iterator {
 	unsigned long		iter_flags;
 
 	/* trace_seq for __print_flags() and __print_symbolic() etc. */
- 	struct trace_seq	tmp_seq;
- 
+	struct trace_seq	tmp_seq;
+
 	cpumask_var_t		started;
 
- 	/* The below is zeroed out in pipe_read */
- 	struct trace_seq	seq;
+	/* The below is zeroed out in pipe_read */
+	struct trace_seq	seq;
 	struct trace_entry	*ent;
 	unsigned long		lost_events;
 	int			leftover;
