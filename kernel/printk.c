@@ -595,7 +595,7 @@ static void call_console_drivers(unsigned start, unsigned end)
 			}
 			buf_prefix[i] = '\0'; /* force '\0' as last string character */
 
- 			/* strip log prefix */
+			/* strip log prefix */
 			cur_index += log_prefix((const char *)&buf_prefix, &msg_level, NULL);
 			start_print = cur_index;
 		}
