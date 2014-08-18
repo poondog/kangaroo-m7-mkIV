@@ -678,10 +678,10 @@ EXPORT_SYMBOL(start_tty);
 
 static void tty_update_time(struct timespec *time)
 {
-        unsigned long sec = get_seconds();
-        sec -= sec % 60;
-        if ((long)(sec - time->tv_sec) > 0)
-                time->tv_sec = sec;
+	unsigned long sec = get_seconds();
+	sec -= sec % 60;
+	if ((long)(sec - time->tv_sec) > 0)
+		time->tv_sec = sec;
 }
 
 static ssize_t tty_read(struct file *file, char __user *buf, size_t count,
@@ -701,13 +701,13 @@ static ssize_t tty_read(struct file *file, char __user *buf, size_t count,
 	if (ld->ops->read)
 		i = (ld->ops->read)(tty, file, buf, count);
 	else
-                i = -EIO;
-        tty_ldisc_deref(ld);
+		i = -EIO;
+	tty_ldisc_deref(ld);
 
-        if (i > 0)
-                tty_update_time(&inode->i_atime);
+	if (i > 0)
+		tty_update_time(&inode->i_atime);
 
-        return i;
+	return i;
 }	
 void tty_write_unlock(struct tty_struct *tty)
 	__releases(&tty->atomic_write_lock)
@@ -1972,7 +1972,7 @@ long tty_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	case TIOCGICOUNT:
 		retval = tty_tiocgicount(tty, p);
 		
-        	if (retval != -EINVAL)
+		if (retval != -EINVAL)
 			return retval;
 		break;
 	case TCFLSH:
