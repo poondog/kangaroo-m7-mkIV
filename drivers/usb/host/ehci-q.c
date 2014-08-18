@@ -379,7 +379,7 @@ qh_completions (struct ehci_hcd *ehci, struct ehci_qh *qh)
 			if (state == QH_STATE_IDLE &&
 					qh->qtd_list.next == &qtd->qtd_list &&
 					(hw->hw_token & ACTIVE_BIT(ehci))) {
- 				token = hc32_to_cpu(ehci, hw->hw_token);
+				token = hc32_to_cpu(ehci, hw->hw_token);
 				hw->hw_token &= ~ACTIVE_BIT(ehci);
 
 				ehci_clear_tt_buffer(ehci, qh, urb, token);
