@@ -850,11 +850,11 @@ SYSCALL_DEFINE6(mmap_pgoff, unsigned long, addr, unsigned long, len,
 
 		len = ALIGN(len, huge_page_size(&default_hstate));
 		/*
- 		 * VM_NORESERVE is used because the reservations will be
- 		 * taken when vm_ops->mmap() is called
- 		 * A dummy user value is used because we are not locking
- 		 * memory so no accounting is necessary
- 		 */
+		 * VM_NORESERVE is used because the reservations will be
+		 * taken when vm_ops->mmap() is called
+		 * A dummy user value is used because we are not locking
+		 * memory so no accounting is necessary
+		 */
 		file = hugetlb_file_setup(HUGETLB_ANON_FILE, len,
 						VM_NORESERVE, &user,
 						HUGETLB_ANONHUGE_INODE);
