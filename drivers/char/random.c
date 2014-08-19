@@ -662,8 +662,6 @@ retry:
 					  r->name);
 			r->initialized = 1;
 			r->entropy_total = 0;
-			if (r == &nonblocking_pool)
-				prandom_reseed_late();
 		}
 	}
 
@@ -671,7 +669,6 @@ retry:
 				  entropy_count >> ENTROPY_SHIFT,
 				  r->entropy_total, _RET_IP_);
 
-	/* should we wake readers? */
 	if (r == &input_pool) {
 		int entropy_bytes = entropy_count >> ENTROPY_SHIFT;
 
@@ -702,6 +699,7 @@ retry:
 				r->entropy_total = 0;
 			}
 		}
+	}
 }
 
 static void credit_entropy_bits_safe(struct entropy_store *r, int nbits)
