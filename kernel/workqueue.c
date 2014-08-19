@@ -3544,11 +3544,16 @@ static int __devinit workqueue_cpu_down_callback(struct notifier_block *nfb,
 						 unsigned long action,
 						 void *hcpu)
 {
+	unsigned int cpu = (unsigned long)hcpu;
+	struct work_struct unbind_work;
+
 	switch (action & ~CPU_TASKS_FROZEN) {
 	case CPU_DOWN_PREPARE:
-	case CPU_DYING:
-	case CPU_POST_DEAD:
-		return workqueue_cpu_callback(nfb, action, hcpu);
+		/* unbinding should happen on the local CPU */
+		INIT_WORK_ONSTACK(&unbind_work, gcwq_unbind_fn);
+		schedule_work_on(cpu, &unbind_work);
+		flush_work(&unbind_work);
+		break;
 	}
 	return NOTIFY_OK;
 }
@@ -3628,7 +3633,7 @@ void freeze_workqueues_begin(void)
 		spin_lock_irq(&gcwq->lock);
 
 		BUG_ON(gcwq->flags & GCWQ_FREEZING);
-		gcwq->flags |= GCWQ_FREEZING;
+		gcwq->flags|= GCWQ_FREEZING;
 
 		list_for_each_entry(wq, &workqueues, list) {
 			struct cpu_workqueue_struct *cwq = get_cwq(cpu, wq);
@@ -3760,21 +3765,6 @@ unsigned long get_work_func_of_task_struct(struct task_struct *tsk)
 	}
 	return 0;
 }
-
-void show_pending_work_on_gcwq(void)
-{
-	struct work_struct *work;
-	unsigned int cpu;
-
-	for_each_gcwq_cpu(cpu) {
-		struct global_cwq *gcwq = get_gcwq(cpu);
-
-		list_for_each_entry(work, &gcwq->worklist, entry) {
-			printk("CPU%d pending work : %pf\n", cpu, work->func);
-		}
-	}
-}
-EXPORT_SYMBOL(show_pending_work_on_gcwq);
 
 static int __init init_workqueues(void)
 {
