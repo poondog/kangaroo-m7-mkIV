@@ -551,14 +551,14 @@ lookup_pi_state(u32 uval, struct futex_hash_bucket *hb,
 				return -EINVAL;
 
 			/*
-  			 * Protect against a corrupted uval. If uval
-  			 * is 0x80000000 then pid is 0 and the waiter
-  			 * bit is set. So the deadlock check in the
-  			 * calling code has failed and we did not fall
-  			 * into the check above due to !pid.
-  			 */
-  			if (task && pi_state->owner == task)
-  				return -EDEADLK;
+			 * Protect against a corrupted uval. If uval
+			 * is 0x80000000 then pid is 0 and the waiter
+			 * bit is set. So the deadlock check in the
+			 * calling code has failed and we did not fall
+			 * into the check above due to !pid.
+			 */
+			if (task && pi_state->owner == task)
+				return -EDEADLK;
 
 		out_state:
 			atomic_inc(&pi_state->refcount);
