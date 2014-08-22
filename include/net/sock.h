@@ -702,7 +702,7 @@ struct proto {
 
 	void		(*release_cb)(struct sock *sk);
 
- 	/* Keeping track of sk's, looking them up, and port selection methods. */
+	/* Keeping track of sk's, looking them up, and port selection methods. */
 	void			(*hash)(struct sock *sk);
 	void			(*unhash)(struct sock *sk);
 	void			(*rehash)(struct sock *sk);

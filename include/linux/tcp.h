@@ -295,7 +295,7 @@ struct tcp_sock {
 	struct list_head tsq_node; /* anchor in tsq_tasklet.head list */
 	unsigned long	tsq_flags;
 
- 	/* Data for direct copy to user */
+	/* Data for direct copy to user */
 	struct {
 		struct sk_buff_head	prequeue;
 		struct task_struct	*task;
@@ -329,8 +329,8 @@ struct tcp_sock {
 		unused      : 1;
 	u8	repair_queue;
 	u8	do_early_retrans:1;/* Enable RFC5827 early-retransmit  */
- 
- /* RTT measurement */
+
+/* RTT measurement */
 	u32	srtt;		/* smoothed round trip time << 3	*/
 	u32	mdev;		
 	u32	mdev_max;	
