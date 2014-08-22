@@ -45,10 +45,11 @@ enum {
 	CPU_PRI_SCHED_INACTIVE	= INT_MIN + 1,
 	CPU_PRI_CPUSET_INACTIVE	= INT_MIN,
 
-	
+	/* migration should happen before other stuff but after perf */
 	CPU_PRI_PERF		= 20,
 	CPU_PRI_MIGRATION	= 10,
-	
+
+	/* bring up workqueues before normal notifiers and down after */
 	CPU_PRI_WORKQUEUE_UP	= 5,
 	CPU_PRI_WORKQUEUE_DOWN	= -5,
 };
