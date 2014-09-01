@@ -5,6 +5,25 @@
 #include <asm/stacktrace.h>
 
 #if defined(CONFIG_FRAME_POINTER) && !defined(CONFIG_ARM_UNWIND)
+/*
+ * If both CONFIG_FRAME_POINTER=y and CONFIG_ARM_UNWIND=y walk_stackframe uses
+ * unwind information. So for now just depend on !CONFIG_ARM_UNWIND.
+ *
+ * Unwind the current stack frame and store the new register values in the
+ * structure passed as argument. Unwinding is equivalent to a function return,
+ * hence the new PC value rather than LR should be used for backtrace.
+ *
+ * With framepointer enabled, a simple function prologue looks like this:
+ * mov ip, sp
+ * stmdb sp!, {fp, ip, lr, pc}
+ * sub fp, ip, #4
+ *
+ * A simple function epilogue looks like this:
+ * ldm sp, {fp, sp, pc}
+ *
+ * Note that with framepointer enabled, even the leaf functions have the same
+ * prologue and epilogue, therefore we can ignore the LR value in this case.
+ */
 int notrace unwind_frame(struct stackframe *frame)
 {
 	unsigned long high, low;
