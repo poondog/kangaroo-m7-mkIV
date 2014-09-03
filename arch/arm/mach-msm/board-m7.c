@@ -5170,7 +5170,7 @@ static struct slim_boardinfo m7_slim_devices[] = {
 };
 
 static struct msm_i2c_platform_data m7_i2c_qup_gsbi1_pdata = {
-	.clk_freq = 384000,
+	.clk_freq = 100000,
 	.src_clk_rate = 24000000,
 };
 
