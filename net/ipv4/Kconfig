@@ -595,6 +595,9 @@ choice
 	config DEFAULT_WESTWOOD
 		bool "Westwood" if TCP_CONG_WESTWOOD=y
 
+	config DEFAULT_ILLINOIS
+		bool "Illinois" if TCP_CONG_ILLINOIS=y
+
 	config DEFAULT_RENO
 		bool "Reno"
 
@@ -617,6 +620,7 @@ config DEFAULT_TCP_CONG
 	default "westwood" if DEFAULT_WESTWOOD
 	default "veno" if DEFAULT_VENO
 	default "reno" if DEFAULT_RENO
+	default "illinois" if DEFAULT_ILLINOIS
 	default "cubic"
 
 config TCP_MD5SIG
