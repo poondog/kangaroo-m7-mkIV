@@ -723,7 +723,7 @@ static cycle_t logarithmic_accumulation(cycle_t offset, int shift,
 		timekeeper.xtime.tv_sec += leap;
 		timekeeper.wall_to_monotonic.tv_sec -= leap;
 		if (leap)
-			clock_set = 1;
+			*clock_set = 1;
 	}
 
 	
