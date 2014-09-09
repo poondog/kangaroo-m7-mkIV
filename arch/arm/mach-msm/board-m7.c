@@ -5099,7 +5099,7 @@ static int ethernet_init(void)
 {
 	int ret;
 	ret = 0;
-#endif	
+	
 	if (ret) {
 		pr_err("ks8851 gpio_request failed: %d\n", ret);
 		goto fail;
