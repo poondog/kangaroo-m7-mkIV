@@ -3842,34 +3842,6 @@ static struct i2c_board_info i2c_CM36282_devices_r8[] = {
 	},
 };
 
-#if 0 
-static uint32_t gsbi2_gpio_table[] = {
-       GPIO_CFG(I2C2_DATA_SENS, 1, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
-       GPIO_CFG(I2C2_CLK_SENS, 1, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
-};
-
-
-static uint32_t gsbi3_gpio_table[] = {
-       GPIO_CFG(MONACO_GPIO_TP_I2C_DAT, 1, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
-       GPIO_CFG(MONACO_GPIO_TP_I2C_CLK, 1, GPIO_CFG_OUTPUT, GPIO_CFG_NO_PULL, GPIO_CFG_8MA),
-};
-
-static void gsbi_qup_i2c_gpio_config(int adap_id, int config_type) {
-
-	printk(KERN_INFO "%s(): adap_id = %d, config_type = %d \n", __func__, adap_id, config_type);
-
-	if ((adap_id == MSM8064_GSBI2_QUP_I2C_BUS_ID) && (config_type == 1)) {
-		gpio_tlmm_config(gsbi2_gpio_table[0], GPIO_CFG_ENABLE);
-		gpio_tlmm_config(gsbi2_gpio_table[1], GPIO_CFG_ENABLE);
-	}
-
-	if ((adap_id == MSM8064_GSBI3_QUP_I2C_BUS_ID) && (config_type == 1)) {
-		gpio_tlmm_config(gsbi3_gpio_table[0], GPIO_CFG_ENABLE);
-		gpio_tlmm_config(gsbi3_gpio_table[1], GPIO_CFG_ENABLE);
-	}
-}
-#endif
-
 #define MSM_WCNSS_PHYS	0x03000000
 #define MSM_WCNSS_SIZE	0x280000
 
@@ -4304,162 +4276,6 @@ static struct msm_rpmrs_platform_data msm_rpmrs_data __initdata = {
 		[MSM_RPMRS_ID_RPM_CTL]		= MSM_RPM_ID_RPM_CTL,
 	},
 };
-#if 0 
-static struct msm_cpuidle_state msm_cstates[] __initdata = {
-	{0, 0, "C0", "WFI",
-		MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT},
-
-	{0, 1, "C1", "RETENTION",
-		MSM_PM_SLEEP_MODE_RETENTION},
-
-	{0, 2, "C2", "STANDALONE_POWER_COLLAPSE",
-		MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE},
-
-	{0, 3, "C3", "POWER_COLLAPSE",
-		MSM_PM_SLEEP_MODE_POWER_COLLAPSE},
-
-	{1, 0, "C0", "WFI",
-		MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT},
-
-	{1, 1, "C1", "RETENTION",
-		MSM_PM_SLEEP_MODE_RETENTION},
-
-	{1, 2, "C2", "STANDALONE_POWER_COLLAPSE",
-		MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE},
-
-	{2, 0, "C0", "WFI",
-		MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT},
-
-	{2, 1, "C1", "RETENTION",
-		MSM_PM_SLEEP_MODE_RETENTION},
-
-	{2, 2, "C2", "STANDALONE_POWER_COLLAPSE",
-		MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE},
-
-	{3, 0, "C0", "WFI",
-		MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT},
-
-	{3, 1, "C1", "RETENTION",
-		MSM_PM_SLEEP_MODE_RETENTION},
-
-	{3, 2, "C2", "STANDALONE_POWER_COLLAPSE",
-		MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE},
-};
-
-static struct msm_pm_platform_data msm_pm_data[] = {
-	[MSM_PM_MODE(0, MSM_PM_SLEEP_MODE_POWER_COLLAPSE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(0, MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(0, MSM_PM_SLEEP_MODE_RETENTION)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 0,
-		.suspend_enabled = 0,
-	},
-
-	[MSM_PM_MODE(0, MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(1, MSM_PM_SLEEP_MODE_POWER_COLLAPSE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(1, MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(1, MSM_PM_SLEEP_MODE_RETENTION)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 0,
-		.suspend_enabled = 0,
-	},
-
-	[MSM_PM_MODE(1, MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(2, MSM_PM_SLEEP_MODE_POWER_COLLAPSE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(2, MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(2, MSM_PM_SLEEP_MODE_RETENTION)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 0,
-		.suspend_enabled = 0,
-	},
-
-	[MSM_PM_MODE(2, MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(3, MSM_PM_SLEEP_MODE_POWER_COLLAPSE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(3, MSM_PM_SLEEP_MODE_POWER_COLLAPSE_STANDALONE)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-
-	[MSM_PM_MODE(3, MSM_PM_SLEEP_MODE_RETENTION)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 0,
-		.suspend_enabled = 0,
-	},
-
-	[MSM_PM_MODE(3, MSM_PM_SLEEP_MODE_WAIT_FOR_INTERRUPT)] = {
-		.idle_supported = 1,
-		.suspend_supported = 1,
-		.idle_enabled = 1,
-		.suspend_enabled = 1,
-	},
-};
-#endif
 
 static uint8_t spm_wfi_cmd_sequence[] __initdata = {
 	0x03, 0x0f,
@@ -4610,15 +4426,7 @@ static struct msm_spm_platform_data msm_spm_data[] __initdata = {
 };
 
 #ifdef CONFIG_FLASHLIGHT_TPS61310
-#if 0	
-#ifdef CONFIG_MSM_CAMERA_FLASH
-int flashlight_control(int mode)
-{
-pr_info("%s, linear led, mode=%d", __func__, mode);
-	return tps61310_flashlight_control(mode);
-}
-#endif
-#endif
+
 static void config_flashlight_gpios(void)
 {
 	static uint32_t flashlight_gpio_table[] = {
@@ -5130,19 +4938,6 @@ static struct msm_spi_platform_data m7_qup_spi_gsbi5_pdata = {
 
 #define KS8851_IRQ_GPIO		43
 
-#if 0	
-static struct spi_board_info spi_board_info[] __initdata = {
-	{
-		.modalias               = "ks8851",
-		.irq                    = MSM_GPIO_TO_INT(KS8851_IRQ_GPIO),
-		.max_speed_hz           = 19200000,
-		.bus_num                = 0,
-		.chip_select            = 2,
-		.mode                   = SPI_MODE_0,
-	},
-};
-#endif
-
 #ifdef CONFIG_MSM_CAMERA
 #ifdef CONFIG_RAWCHIPII
 static struct spi_board_info rawchip_spi_board_info[] __initdata = {
@@ -5268,43 +5063,7 @@ static int cir_reset(void)
 
 	return 0;
 }
-#if 0
-static int cir_set_path(int path)
-{
-	int rc = 0;
-	static int prev_path = -1;
 
-	mutex_lock(&cir_path_lock);
-	pr_info("[CIR] %s, prev_path = %d, path = %d\n",
-				__func__, prev_path, path);
-
-	if (path == prev_path) {
-		pr_info("[CIR] %s: path no change\n", __func__);
-		mutex_unlock(&cir_path_lock);
-		return rc;
-	}
-
-	switch(path) {
-		case PATH_NONE:
-			rc = gpio_direction_output(PM8921_GPIO_PM_TO_SYS(CIR_LS_EN),0);
-			break;
-		case PATH_CIR:
-			rc = gpio_direction_output(PM8921_GPIO_PM_TO_SYS(CIR_LS_EN),1);
-			break;
-		default:
-			pr_info("[CIR] %s PATH not support\n", __func__);
-			mutex_unlock(&cir_path_lock);
-			return -1;
-	}
-	if (rc == 0)
-		prev_path = path;
-	else
-		pr_info("[CIR] %s PATH switch failed\n", __func__);
-
-	mutex_unlock(&cir_path_lock);
-	return rc;
-}
-#endif
 static struct cir_platform_data m7_cir_gsbi3_pdata = {
 	
 	.cir_reset = cir_reset,
@@ -5339,9 +5098,6 @@ static void __init m7_i2c_init(void)
 static int ethernet_init(void)
 {
 	int ret;
-#if 0	
-	ret = gpio_request(KS8851_IRQ_GPIO, "ks8851_irq");
-#else
 	ret = 0;
 #endif	
 	if (ret) {
@@ -5844,11 +5600,6 @@ static void __init m7_common_init(void)
 	m7_init_dsps();
 	msm_spm_init(msm_spm_data, ARRAY_SIZE(msm_spm_data));
 	msm_spm_l2_init(msm_spm_l2_data);
-#if 0 
-	msm_pm_set_platform_data(msm_pm_data, ARRAY_SIZE(msm_pm_data));
-	msm_cpuidle_set_states(msm_cstates, ARRAY_SIZE(msm_cstates),
-				msm_pm_data);
-#endif
 	BUG_ON(msm_pm_boot_init(&msm_pm_boot_pdata));
 	msm_pm_init_sleep_status_data(&msm_pm_slp_sts_data);
 	properties_kobj = kobject_create_and_add("board_properties", NULL);
