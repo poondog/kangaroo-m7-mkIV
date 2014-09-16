@@ -404,7 +404,7 @@ static void avc_audit_post_callback(struct audit_buffer *ab, void *a)
 }
 
 static noinline int slow_avc_audit(u32 ssid, u32 tsid, u16 tclass,
-		u32 requested, u32 audited, u32 denied,
+		u32 requested, u32 audited, u32 denied, int result,
 		struct common_audit_data *a,
 		unsigned flags)
 {
