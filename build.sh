@@ -1,23 +1,29 @@
 #!/bin/bash
 
-# Kangaroo Kernel build script thanks to CyanogenMod, anarkia1976
+BASE_VER="KANGAROO.M7.MKIV.v067"
+VER=""
+KERNEL_VER=$BASE_VER$VER
 
-# Kernel Version
-BASE_VER=".KANGAROO"
-VER=".M7.mkIV.v051"
-VER=$BASE_VER$VER
-
-# AK Variables
-export LOCALVERSION=""`echo $VER`
-
-# toolchain
+export LOCALVERSION="."`echo $KERNEL_VER`
 export CROSS_COMPILE=${HOME}/Toolchains/arm-cortex_a15-linux-gnueabihf-linaro_4.9.2-2014.09/bin/arm-cortex_a15-linux-gnueabihf-
 
-# make .config
-make m7_defconfig
-env KCONFIG_NOTIMESTAMP=true \
-make ARCH=arm export SUBARCH=arm CROSS_COMPILE=arm-eabi-
+export ARCH=arm
+export SUBARCH=arm
+export KBUILD_BUILD_USER=poondoge
+# export KBUILD_BUILD_HOST="semaphore.gr"
 
-# build the kernel
+DATE_START=$(date +"%s")
 
-make -j4
+make "m7_defconfig"
+
+echo "LOCALVERSION="$LOCALVERSION
+echo "CROSS_COMPILE="$CROSS_COMPILE
+echo "ARCH="$ARCH
+
+make -j1
+
+DATE_END=$(date +"%s")
+echo
+DIFF=$(($DATE_END - $DATE_START))
+echo "  Build completed in $(($DIFF / 60)) minutes and $(($DIFF % 60)) seconds."
+echo
